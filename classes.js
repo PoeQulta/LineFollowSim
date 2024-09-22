@@ -207,7 +207,7 @@ class Environment
         joinPathData: false,
         minDistance: 1,
         roundToNearest: 1,
-        sampleFrequency: 0.001
+        sampleFrequency: 0.0001
     })
     {
         this.svg = svgTemplate.replace("%Path%",linePath).replace("%thickness%",thickness.toString());
@@ -299,3 +299,18 @@ class Plant
         this.#lastErr = this.err;
     }
 }
+
+class PidController
+{
+    constructor(K_p,K_i,K_d,plant)
+    {
+        this.K_p = K_p;
+        this.K_i = K_i;
+        this.K_d = K_d;
+        this.plant = plant;
+    }
+    getCorrection()
+    {
+        return this.K_p*this.plant.err + this.K_i*this.plant.segmaErr + this.K_d*this.plant.deltaErr;
+    }
+} 

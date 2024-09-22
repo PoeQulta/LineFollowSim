@@ -4,10 +4,11 @@ class robotView
     {
         this.sprite = null;
         this.model = new DiffDrive(50,1);
-        this.sensor = new LineSensor("sensor1",{x:0,y:0,theta:0},12);
+        this.sensor = new LineSensor("sensor1",{x:0,y:0,theta:0},20);
         this.ICC = null
         this.ICCrad = null;
         this.sensorView = null
+        this.baseV = 0;
         const texturepromise = PIXI.Assets.load('sample.png');
         texturepromise.then((resolved) =>
             {
@@ -130,25 +131,37 @@ var err = new chartView('errorChart',100,'Error','#FF0000');
 var segmaErr = new chartView('segmaChart',100,'segmaError','#00FF00');
 var deltaErr = new chartView('deltaChart',100,'deltaError',"#0000FF");
 var errPlant = new Plant(50);
-var V_L_slider = document.getElementById("Vleft");
-var V_R_slider = document.getElementById("Vright");
-V_L_slider.onchange = function() {
-    robo.model.velocity.left = Number(this.value)
-    console.log(robo.model.velocity)
+var controller = new PidController(0,0,0,errPlant);
+var V_Base = document.getElementById("V_Base");
+V_Base.onchange = function() {
+    robo.baseV = Number(this.value);
   }
-V_R_slider.onchange = function() {
-    robo.model.velocity.right = Number(this.value)
-    console.log(robo.model.velocity)
+
+var Kp_input = document.getElementById("kp");
+var Ki_input = document.getElementById("ki");
+var Kd_input = document.getElementById("kd");
+
+Kp_input.onchange = function() {
+    controller.K_p = this.value;
   }
+Ki_input.onchange = function() {
+    controller.K_i = this.value;
+  }
+Kd_input.onchange = function() {
+    controller.K_d = this.value;
+  }
+
 app.ticker.add((ticker) => {
     if(robo !=null)
         {
             robo.updatePose(ticker.deltaMS/100);
             var newData = robo.getReadings(env);
-            console.log(newData)
             errPlant.updatePlant(newData)
             err.updateChart(errPlant.err);
             segmaErr.updateChart(errPlant.segmaErr);
             deltaErr.updateChart(errPlant.deltaErr);
+            const correction = controller.getCorrection()
+            robo.model.velocity.left = robo.baseV - correction;
+            robo.model.velocity.right =robo.baseV + correction;;
         }
 });

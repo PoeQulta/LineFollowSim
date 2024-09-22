@@ -11,14 +11,24 @@
             <div id="groundContainer" style="width: 800px; float: left;">
             </div>
             <div style="width: 500px;margin-left: 820px;">
-              <div class="slidecontainer">
-                <p>V_left</p>
-                <input type="range" min="-5" max="5" value="0" class="slider" id="Vleft">
-              </div>
-              <div class="slidecontainer">
-                <p>V_right</p>
-                <input type="range" min="-5" max="5" value="0" class="slider" id="Vright">
-              </div>
+              <div>
+                <div class="slidecontainer">
+                  <p>K_p</p>
+                  <input type="number" value="0" class="slider" id="kp">
+                </div>
+                <div class="slidecontainer">
+                  <p>K_i</p>
+                  <input type="number" value="0" class="slider" id="ki">
+                </div>
+                <div class="slidecontainer">
+                  <p>K_d </p>
+                  <input type="number" value="0" class="slider" id="kd">
+                </div>
+                <div class="slidecontainer">
+                  <p>Base Velocity</p>
+                  <input type="range" min="-5" max="5" value="0" class="slider" id="V_Base">
+                </div>
+            </div>
               <div>
                 <canvas id="errorChart"></canvas> 
               </div>

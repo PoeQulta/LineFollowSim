@@ -8,27 +8,44 @@
     </head>
     <body>
           <div style="width: 100%; overflow: hidden;">
-            <div id="groundContainer" style="width: 800px; float: left;">
-            </div>
-            <div style="width: 500px;margin-left: 820px;">
+                <div id="groundContainer" style="width: 800px; float: left;">
+          </div>
+          
+            <div style="width: 500px;margin-left: 820px; overflow: hidden;">
               <div>
-                <div class="slidecontainer">
-                  <p>K_p</p>
-                  <input type="number" value="0" class="slider" id="kp">
+              <div style="width: 250px;">
+                <table>
+                  <tr>
+                    <th>
+                      <div class="slidecontainer">
+                        <p>K_p</p>
+                        <input type="number" value="0" class="slider" id="kp">
+                      </div>
+                      <div class="slidecontainer">
+                        <p>K_i</p>
+                        <input type="number" value="0" class="slider" id="ki">
+                      </div>
+                      <div class="slidecontainer">
+                        <p>K_d </p>
+                        <input type="number" value="0" class="slider" id="kd">
+                      </div>
+                      <div class="slidecontainer">
+                        <p>Base Velocity</p>
+                        <input type="range" min="-5" max="5" value="0" class="slider" id="V_Base">
+                      </div>
+                      <div class="slidecontainer">
+                        <input type="button" value="refresh" class="slider" id="refresh_btn">
+                      </div>
+                    </th>
+                    <th>
+                      <a href="https://www.easycodetools.com/tool/svg-path-builder" target="_blank">Use this tool</a>
+                      <textarea rows="10" cols="30" id="path_textarea"></textarea>
+                    </th>
+                  </tr>
+                </table>
+                    
                 </div>
-                <div class="slidecontainer">
-                  <p>K_i</p>
-                  <input type="number" value="0" class="slider" id="ki">
-                </div>
-                <div class="slidecontainer">
-                  <p>K_d </p>
-                  <input type="number" value="0" class="slider" id="kd">
-                </div>
-                <div class="slidecontainer">
-                  <p>Base Velocity</p>
-                  <input type="range" min="-5" max="5" value="0" class="slider" id="V_Base">
-                </div>
-            </div>
+              </div>
               <div>
                 <canvas id="errorChart"></canvas> 
               </div>
